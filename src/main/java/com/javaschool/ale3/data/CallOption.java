@@ -1,31 +1,23 @@
 package com.javaschool.ale3.data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Table("call_option")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "call_option")
+@NoArgsConstructor
 public class CallOption {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Getter
+    @Setter
     private String name;
+    @Getter
+    @Setter
     private Integer price;
 
-    public CallOption() {
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
 }

@@ -1,15 +1,17 @@
 package com.javaschool.ale3.data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.*;
 
-@Table("included_options")
+@Entity
+@Table(name = "included_options")
 public class IncludedOptions {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @MappedCollection(idColumn = "additional_option_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "additional_option_id")
     private AdditionalOption option;
-    @MappedCollection(idColumn = "tariff_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tariff_id")
     private Tariff tariff;
 }

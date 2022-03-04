@@ -1,35 +1,29 @@
 package com.javaschool.ale3.data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Table("selected_options")
+import javax.persistence.*;
+
+@Entity
+@Table(name = "selected_options")
+@NoArgsConstructor
 public class SelectedOptions {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @MappedCollection(idColumn = "additional_option_id")
+    @Getter
+    @Setter
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "additional_option_id")
     private AdditionalOption option;
-    @MappedCollection(idColumn = "contract_id")
+
+    @Getter
+    @Setter
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "contract_id")
     private Contract contract;
 
-    public SelectedOptions() {
-    }
-
-    public AdditionalOption getOption() {
-        return option;
-    }
-
-    public void setOption(AdditionalOption option) {
-        this.option = option;
-    }
-
-    public Contract getContract() {
-        return contract;
-    }
-
-    public void setContract(Contract contract) {
-        this.contract = contract;
-    }
 }

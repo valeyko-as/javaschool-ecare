@@ -1,19 +1,23 @@
 package com.javaschool.ale3.data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.MappedCollection;
-import org.springframework.data.relational.core.mapping.Table;
+import javax.persistence.*;
 
-@Table("conflict_options")
+@Entity
+@Table(name = "conflict_options")
 public class ConflictOptions {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @MappedCollection(idColumn = "additional_option_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "additional_option_id")
     private AdditionalOption additionalOption;
-    @MappedCollection(idColumn = "internet_option_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "internet_option_id")
     private InternetOption internetOption;
-    @MappedCollection(idColumn = "call_option_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "call_option_id")
     private CallOption callOption;
-    @MappedCollection(idColumn = "messages_option_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "messages_option_id")
     private MessagesOption messagesOption;
 }

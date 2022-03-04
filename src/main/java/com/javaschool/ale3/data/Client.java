@@ -1,61 +1,36 @@
 package com.javaschool.ale3.data;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.text.DateFormat;
+import javax.persistence.*;
 
-@Table("client")
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "client")
+@NoArgsConstructor
 public class Client {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Getter
+    @Setter
     private String firstName;
+    @Getter
+    @Setter
     private String lastName;
-    private DateFormat birthDate;
+    @Getter
+    @Setter
+    private LocalDateTime birthDate;
+    @Getter
+    @Setter
     private String passport;
+    @Getter
+    @Setter
     private String email;
+    @Setter
     private String password;
 
-    public Client() {
-    }
-
-    public void setPassport(String passport) {
-        this.passport = passport;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public DateFormat getBirthDate() {
-        return birthDate;
-    }
-
-    public void setBirthDate(DateFormat birthDate) {
-        this.birthDate = birthDate;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

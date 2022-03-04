@@ -10,19 +10,19 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path="/internet_option")
 public class InernetOptionController {
     @Autowired
-    private InternetOptionRepository ioRepository;
+    private InternetOptionRepository internetOptionRepository;
 
     @PostMapping(path="/add")
     public @ResponseBody String addNewInternetOption(@RequestParam String name, @RequestParam Integer price) {
-        InternetOption newIO = new InternetOption();
-        newIO.setName(name);
-        newIO.setPrice(price);
-        ioRepository.save(newIO);
+        InternetOption internetOption = new InternetOption();
+        internetOption.setName(name);
+        internetOption.setPrice(price);
+        internetOptionRepository.save(internetOption);
         return "Added";
     }
 
     @GetMapping(path = "/show")
-    public @ResponseBody Iterable<InternetOption> getAllIO() {
-        return ioRepository.findAll();
+    public @ResponseBody Iterable<InternetOption> getAllInternetOptions() {
+        return internetOptionRepository.findAll();
     }
 }
