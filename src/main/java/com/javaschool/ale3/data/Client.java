@@ -7,6 +7,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -33,4 +35,7 @@ public class Client {
     @Setter
     private String password;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "client_id")
+    private List<Contract> contracts = new ArrayList<>();
 }

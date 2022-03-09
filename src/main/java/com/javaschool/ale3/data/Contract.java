@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "contract")
@@ -31,4 +33,9 @@ public class Contract {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tariff_id")
     private Tariff tariff;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "contract_id")
+    private List<SelectedOptions> selectedOptions = new ArrayList<>();
+
 }
