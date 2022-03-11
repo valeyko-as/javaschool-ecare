@@ -1,12 +1,11 @@
 package com.javaschool.ale3.controllers;
 
+import com.javaschool.ale3.dto.TariffDTO;
 import com.javaschool.ale3.services.TariffService;
 import com.javaschool.ale3.data.Tariff;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 
 @Controller
@@ -15,28 +14,28 @@ public class TariffController {
     @Autowired
     TariffService tariffService;
 
-    @GetMapping(path = "/showall")
+    @GetMapping(path = "/all")
     public @ResponseBody Iterable<Tariff> getAllTariffs() {
         return tariffService.getAll();
     }
 
-    @GetMapping(path = "/showactual")
+    @GetMapping(path = "/actual")
     public @ResponseBody Iterable<Tariff> getActualTariff() {
         return tariffService.getActual();
     }
 
-    @GetMapping(path = "/find")
-    public @ResponseBody Iterable<Tariff> findTariff (@RequestParam String name) {
+    @GetMapping(path = "/name/{name}")
+    public @ResponseBody Iterable<Tariff> findTariff (@PathVariable String name) {
         return tariffService.findByName(name);
     }
 
-    @GetMapping(path = "/findId")
-    public @ResponseBody Optional<Tariff> findTariffById(@RequestParam Integer id) {
+    @GetMapping(path = "/id/{id}")
+    public @ResponseBody Tariff findTariffById(@PathVariable Integer id) {
         return tariffService.findById(id);
     }
 
-    @GetMapping(path = "/findContract")
-    public @ResponseBody Tariff findByContract(@RequestParam Integer id) {
+    @GetMapping(path = "/contractid/{id}")
+    public @ResponseBody TariffDTO findByContract(@PathVariable Integer id) {
         return tariffService.findByContractId(id);
     }
 

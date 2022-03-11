@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ContractRepository extends JpaRepository<Contract, Integer> {
-    @Query(value = "select c from Contract c where c.number = ?1")
     Contract findByNumber(String lastName);
 
     @Query(value = "select co from Contract co join co.client cl where cl.id = ?1")

@@ -18,7 +18,7 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public Client findById(Integer id) {
-        return repository.getById(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class ClientServiceImpl implements ClientService{
 
     @Override
     public List<Client> findByFullName(String lastName, String firstName) {
-        return repository.findByFullName(lastName, firstName);
+        return repository.findByFirstNameAndLastName(lastName, firstName);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ClientServiceImpl implements ClientService{
     }
 
     @Override
-    public Client addClient(Client client) {
+    public Client add(Client client) {
         log.debug("Added new client: ", client);
         Client savedClient = repository.saveAndFlush(client);
         return savedClient;

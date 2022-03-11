@@ -1,6 +1,8 @@
 package com.javaschool.ale3.services;
 
 import com.javaschool.ale3.data.Tariff;
+import com.javaschool.ale3.dto.TariffDTO;
+import com.javaschool.ale3.dtomapper.TariffMapper;
 import com.javaschool.ale3.repositories.TariffRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service("TariffService")
 @Transactional
@@ -18,34 +19,48 @@ public class TariffServiceImpl implements TariffService {
     private TariffRepository repository;
 
     @Override
-    public Optional<Tariff> findById(Integer id) {
-        return repository.findById(id);
+    @Transactional(readOnly = true)
+    public Tariff findById(Integer id) {
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Tariff> getAll() {
         return repository.findAll();
     }
 
     @Override
-    public List<Tariff> getActual() {
-        return repository.getActualTariffs();
+    public Tariff add(Tariff tariff) {
+        Tariff savedTariff = repository.saveAndFlush(tariff);
+        log.debug("Added new tariff: ", savedTariff);
+        return savedTariff;
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Tariff> getActual() {
+        return repository.getTariffsByActualityIsTrue();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public List<Tariff> findByName(String name) {
         return repository.findByName(name);
     }
 
     @Override
-    public Tariff findByContractId(Integer id) {
-        return repository.findByContractId(id);
+    @Transactional(readOnly = true)
+    public TariffDTO findByContractId(Integer id) {
+        return TariffMapper.toDto(repository.findByContractId(id));
     }
 
     @Override
-    public Tariff addTariff(Tariff tariff) {
-       Tariff savedTariff = repository.saveAndFlush(tariff);
-       return savedTariff;
+    public TariffDTO add(TariffDTO tariffDTO) {
+        Tariff savedTariff = TariffMapper.toEntity(tariffDTO);
+        repository.saveAndFlush(savedTariff);
+        log.debug("Added new tariff: ", tariffDTO);
+        return tariffDTO;
     }
 
     @Override

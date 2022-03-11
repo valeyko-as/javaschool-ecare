@@ -1,5 +1,6 @@
 package com.javaschool.ale3.data;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,34 +12,21 @@ import java.util.List;
 
 @Entity
 @Table(name = "tariff")
-@NoArgsConstructor
+@Data
 public class Tariff {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Integer id;
-    @Getter
-    @Setter
     private String name;
-    @Getter
-    @Setter
     private Integer price;
-    @Getter
-    @Setter
     private boolean actuality;
 
-    @Getter
-    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "internet_option_id")
     private InternetOption internet;
-    @Getter
-    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "call_option_id")
     private CallOption calls;
-    @Getter
-    @Setter
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "messages_option_id")
     private MessagesOption messages;
@@ -46,4 +34,12 @@ public class Tariff {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "tariff_id")
     private List<Contract> contracts = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tariff_id")
+    private List<PossibleOptions> possibleOptions = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "tariff_id")
+    private List<IncludedOptions> includedOptions = new ArrayList<>();
 }

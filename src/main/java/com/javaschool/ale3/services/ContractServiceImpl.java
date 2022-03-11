@@ -18,7 +18,7 @@ public class ContractServiceImpl implements ContractService {
 
     @Override
     public Contract findById(Integer id) {
-        return repository.getById(id);
+        return repository.findById(id).orElseThrow();
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public Contract addContract(Contract contract) {
+    public Contract add(Contract contract) {
         log.debug("Added contract: ", contract);
         Contract savedContract = repository.saveAndFlush(contract);
         return savedContract;
