@@ -5,9 +5,9 @@ import com.javaschool.ale3.dto.TariffDTO;
 
 import java.util.List;
 
-public interface TariffService extends ServiceInterface<Tariff> {
-    List<Tariff> getActual();
-    List<Tariff> findByName(String name);
+public interface TariffService extends ServiceInterface<TariffDTO> {
+    List<TariffDTO> getActual();
+    List<TariffDTO> findByName(String name);
     TariffDTO findByContractId(Integer id);
-    TariffDTO add(TariffDTO tariff);
+    public void update(Tariff tariff);
 }

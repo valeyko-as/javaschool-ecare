@@ -53,7 +53,6 @@ public class ClientServiceImpl implements ClientService{
         return savedClient;
     }
 
-    @Override
     public void update(Client client) {
         log.debug("Updated client: ", client);
         repository.saveAndFlush(client);

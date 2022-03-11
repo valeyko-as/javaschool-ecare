@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service("TariffService")
 @Transactional
@@ -20,33 +21,26 @@ public class TariffServiceImpl implements TariffService {
 
     @Override
     @Transactional(readOnly = true)
-    public Tariff findById(Integer id) {
-        return repository.findById(id).orElseThrow();
+    public TariffDTO findById(Integer id) {
+        return TariffMapper.toDto(repository.findById(id).orElseThrow());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Tariff> getAll() {
-        return repository.findAll();
-    }
-
-    @Override
-    public Tariff add(Tariff tariff) {
-        Tariff savedTariff = repository.saveAndFlush(tariff);
-        log.debug("Added new tariff: ", savedTariff);
-        return savedTariff;
+    public List<TariffDTO> getAll() {
+        return repository.findAll().stream().map(TariffMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Tariff> getActual() {
-        return repository.getTariffsByActualityIsTrue();
+    public List<TariffDTO> getActual() {
+        return repository.getTariffsByActualityIsTrue().stream().map(TariffMapper::toDto).collect(Collectors.toList());
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Tariff> findByName(String name) {
-        return repository.findByName(name);
+    public List<TariffDTO> findByName(String name) {
+        return repository.findByName(name).stream().map(TariffMapper::toDto).collect(Collectors.toList());
     }
 
     @Override

@@ -15,22 +15,22 @@ public class TariffController {
     TariffService tariffService;
 
     @GetMapping(path = "/all")
-    public @ResponseBody Iterable<Tariff> getAllTariffs() {
+    public @ResponseBody Iterable<TariffDTO> getAllTariffs() {
         return tariffService.getAll();
     }
 
     @GetMapping(path = "/actual")
-    public @ResponseBody Iterable<Tariff> getActualTariff() {
+    public @ResponseBody Iterable<TariffDTO> getActualTariff() {
         return tariffService.getActual();
     }
 
     @GetMapping(path = "/name/{name}")
-    public @ResponseBody Iterable<Tariff> findTariff (@PathVariable String name) {
+    public @ResponseBody Iterable<TariffDTO> findTariff (@PathVariable String name) {
         return tariffService.findByName(name);
     }
 
     @GetMapping(path = "/id/{id}")
-    public @ResponseBody Tariff findTariffById(@PathVariable Integer id) {
+    public @ResponseBody TariffDTO findTariffById(@PathVariable Integer id) {
         return tariffService.findById(id);
     }
 
